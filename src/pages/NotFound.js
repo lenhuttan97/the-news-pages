@@ -1,21 +1,24 @@
 import React from 'react';
-import { useLocation, useRouteError } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import '../css/notFound.css'
 
 function NotFound(props) {
-    const error = useRouteError();
-    const location = useLocation();
-    const pathname = location.pathname;
-
     return (
-        <div>
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <p>
-                <i>{pathname}</i>
-            </p>
-            <p>
-                <i>{error.statusText || error.message}</i>
-            </p>
+        <div className='main-not-found'>
+            <div className='header'>
+                <h1>Oops!</h1>
+            </div>
+            <div className='conent'>
+                <h3>404 - pages not found</h3>
+                <p>
+                    The page you looking for might have been removed had its name changed or it temporarily unavailable
+                </p>
+                <Link className='button' to='/'>
+                    <span>
+                        go to homepage
+                    </span>
+                </Link>
+            </div>
         </div>
     );
 }

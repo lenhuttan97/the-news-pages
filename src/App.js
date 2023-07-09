@@ -1,8 +1,9 @@
 import {createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home';
-import Topic from './pages/Topic';
+import Topic, { ckeckTopic } from './pages/Topic';
 import Root from './pages/Root';
 import NotFound from './pages/NotFound';
+import "./fontawesome.js"
 
 
 function loader(params) {
@@ -27,8 +28,12 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/home",
+        element: <Home />,
+      },
+      {
         path: "topic/:topicId",
-        loader: loader,
+        loader: ckeckTopic,
         element: <Topic />,
       },
     ],

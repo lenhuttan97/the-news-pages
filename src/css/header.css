@@ -1,0 +1,203 @@
+header {
+    height: 50px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+header .logo {
+    height: 100%;
+    flex: 1;
+}
+
+header .logo a {
+    width: 200px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header .logo img {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+}
+
+header .topic {
+    width: 50%;
+    flex: 3;
+    padding-right: 10px;
+}
+
+header .topic ul {
+    display: flex;
+    list-style-type: none;
+    width: 100%;
+    justify-content: space-between;
+}
+
+header .topic ul li a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: capitalize;
+}
+
+header .topic ul:hover li a {
+    color: transparent;
+    text-shadow: 0 0 1px #999;
+}
+
+header .topic ul:hover li:hover a {
+    color: #fff;
+    font-size: 20px;
+    text-shadow: 0 0 2px rgb(255, 255, 255);
+}
+
+header .topic .menu {
+    display: none;
+}
+
+header .tool {
+    display: flex;
+    flex: 1;
+}
+
+header .tool .search-box {
+    height: 35px;
+    width: max(100%, 50px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+
+header .tool .search-box input {
+    visibility: hidden;
+    width: 20px;
+}
+
+
+header .tool .search-box.active {
+    border: 1px solid #fff;
+    /* width: max(100%, 50px); */
+    padding: 0 5px;
+    border-radius: 5px;
+}
+
+header .tool .search-box.active form {
+    width: 100%;
+    padding: 2px;
+    margin-right: 5px;
+}
+header .tool .search-box.active input {
+    visibility: visible;
+    width: 100%;
+    padding: 2px;
+    margin-right: 5px;
+}
+
+header .tool .search-box label {
+    cursor: pointer;
+}
+
+header  .icon {
+    color: #fff;
+}
+
+
+header .icon:hover {
+    font-size: 20px;
+}
+
+header .tool .intro {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+}
+
+@media only screen and (max-width: 1000px) {
+
+    header .topic {
+        padding: 0;
+        flex: 6;
+    }
+
+    header .topic.blur {
+        flex: 1;
+    }
+
+    header .topic.blur ul li a {
+        color: transparent;
+        text-shadow: 0 0 2px #555;
+    }
+}
+
+@media only screen and (max-width: 820px) {
+
+    header .topic {
+        position: relative;
+        text-align: right;
+        order: 1;
+        width: 0;
+        flex: 0;
+        padding-right: 20px;
+    }
+
+    header .topic.topic.blur {
+        flex: 0;
+    }
+
+    header .topic.topic.blur ul li a {
+        color: #fff;
+        text-shadow: 0;
+    }
+
+    header .topic .menu {
+        display: inline;
+        color: #fff;
+    }
+
+    header .topic .arrow-up {
+        display: none;
+    }
+
+    header .topic ul {
+        display: none;
+    }
+
+    header .topic .arrow-up.display {
+        position: absolute;
+        display: inline;
+        bottom: -15px;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid #999;
+    }
+
+    header .topic ul.display {
+        position: absolute;
+        display: inline;
+        background-color: #999;
+        width: 400px;
+        bottom: -255px;
+        left: -370px;
+        flex-direction: column;
+        padding: 0 15px;
+    }
+
+    header .topic ul.display li {
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+}

@@ -23,8 +23,12 @@ function Topic(props) {
   );
 }
 
-export const a = ()=>{
-  throw new Error(`throw an error!`);
+export const ckeckTopic = (params)=>{
+  const arrTopic = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
+  if(!arrTopic.includes(params.params.topicId)){
+      throw new Error("no topic Id")
+  }
+  return params.params.topicId;
 } 
 
 export default Topic;
