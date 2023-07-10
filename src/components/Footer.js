@@ -4,8 +4,8 @@ import '../css/footer.css'
 
 function Footer(props) {
     return (
-        <>
-            <div className='infor'>
+        <footer>
+            <div className='top'>
                 <div className='contact'>
                     <h1>the news</h1>
                     <p>
@@ -13,7 +13,7 @@ function Footer(props) {
                     </p>
                     <div className='email'>
                         <label>
-                            <FontAwesomeIcon icon="fa-regular fa-envelope" />
+                            <FontAwesomeIcon icon="fa-regular fa-envelope" size='lg' />
                         </label>
                         <input type='text' placeholder='Your Email'></input>
                         <div className='button'>
@@ -52,19 +52,22 @@ function Footer(props) {
                     </ul>
                 </div>
             </div>
-            <div className='copyright'>
+            <div className='bottom'>
                 <div className='left'>
-
+                    <FontAwesomeIcon icon="fa-regular fa-copyright" />
+                    <span>
+                        2023 the news! All rights reserved
+                    </span>
                 </div>
                 <div className='right'>
                     <span>term of service</span>
-                    <span>policy service</span>
-                    <span>cookie policy</span>
-                    <span>patners</span>
+                    <span>Policy service</span>
+                    <span>Cookie policy</span>
+                    <span>Patners</span>
                 </div>
             </div>
 
-        </>
+        </footer>
     );
 }
 

@@ -1,0 +1,124 @@
+footer {
+    background-color: #f3f1f14d;
+    padding: 0px 15px;
+}
+
+footer .top {
+    display: flex;
+    width: 100%;
+    padding: 100px 0px;
+    row-gap: 30px;
+}
+
+footer .top .contact {
+    flex: 1;
+}
+
+
+footer .top .contact h1 {
+    text-transform: capitalize;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+footer .top .contact p {
+    width: 70%;
+    color: #444;
+    margin-bottom: 30px;
+}
+
+footer .top .contact .email {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+footer .top .contact .email input {
+    border: 1px solid #444;
+    height: 40px;
+    width: 50%;
+    background-color: #f3f1f14d;
+    padding: 5px 20px 5px 50px;
+    border-radius: 5px;
+}
+
+footer .top .contact .email label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 17px;
+}
+
+footer .top .contact .email .button {
+    height: 40px;
+    width: max(10%, 80px);
+    background-color: rgb(237, 0, 0);
+    border-radius: 5px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+
+footer .top .infor {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 10%;
+    flex-wrap: wrap;
+}
+
+footer .top .infor ul {
+    list-style-type: none;
+}
+
+footer .top .infor ul li {
+    text-transform: capitalize;
+    margin-bottom: 25px;
+    text-align: left;
+    color: #333;
+}
+
+footer .top .infor ul li:nth-child(1) {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: #000;
+}
+
+footer .bottom {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0px 100px 0px;
+    border-top: 1px solid #444;
+    color: #444;
+    row-gap: 30px;
+}
+
+footer .bottom .left span{
+  margin-left: 10px;
+}
+
+footer .bottom .right span{
+    text-transform: capitalize;
+    margin-left: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    footer .top{
+        flex-direction: column;
+    }
+    footer .top .infor{
+        justify-content: center;
+    }
+    footer .top ul{
+       width: 40%;
+    }
+    footer .bottom{
+        flex-wrap: wrap;
+    }
+}

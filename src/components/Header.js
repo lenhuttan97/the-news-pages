@@ -17,7 +17,7 @@ function Header(props) {
         setSearchParams(params => {
             params.set("p", valueInput);
             return params;
-          });
+        });
 
     }
     const handleChange = (event) => {

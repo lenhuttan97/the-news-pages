@@ -90,7 +90,7 @@ function Home(props) {
                     <div className='caption'>
                         <h2>Technology</h2>
                         <Link to='/'>
-                          
+
                             <FontAwesomeIcon icon="fa-solid fa-angle-right" />
                         </Link>
                     </div>
@@ -103,22 +103,22 @@ function Home(props) {
                 <div className='caption'>
                     <h2>top news</h2>
                     <Link to='/'>
-                    <span>See all</span>
+                        <span>See all</span>
                         <FontAwesomeIcon icon="fa-solid fa-angle-right" />
                     </Link>
                 </div>
                 <div className='sources'>
-                        <ul>
-                            {sources.map((source) => 
-                                <li>
-                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/ANSA_logo.svg/1920px-ANSA_logo.svg.png' alt={source.id}/>
-                                    <div className='infor'>
-                                        <h3>{source.name}</h3>
-                                        <p>{source.category}</p>
-                                    </div>
-                                </li>
-                            )}
-                        </ul>
+                    <ul>
+                        {sources.map((source) =>
+                            <li>
+                                {/* <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/ANSA_logo.svg/1920px-ANSA_logo.svg.png' alt={source.id}/> */}
+                                <div className='infor'>
+                                    <h3>{source.name}</h3>
+                                    <p>{source.category}</p>
+                                </div>
+                            </li>
+                        )}
+                    </ul>
                 </div>
             </section>
         </>
