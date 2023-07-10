@@ -1,0 +1,456 @@
+.news-update {
+    height: 45px;
+    padding: 15px 15px;
+    background-color: azure;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+
+.news-update label {
+    text-transform: capitalize;
+    margin-right: 10px;
+    color: red;
+    width: min(120px, 20%);
+}
+
+.news-update .autoScroll {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.news-update .autoScroll ul {
+    display: flex;
+    list-style-type: none;
+    animation: secondary 50s linear infinite;
+}
+
+@keyframes secondary {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.news-update .autoScroll ul:hover {
+    animation-play-state: paused;
+}
+
+.news-update .autoScroll ul li {
+    white-space: nowrap;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.news-update .autoScroll ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.news-update .autoScroll ul li::before {
+    content: "\2022";
+    color: red;
+    font-weight: 900;
+    display: inline-block;
+    width: 1em;
+    margin-left: -0.5em;
+}
+
+.headlines {
+    height: 560px;
+    margin: 30px 0px;
+    display: flex;
+    column-gap: 20px;
+}
+
+.headlines .main-news {
+    position: relative;
+    flex: 4;
+    height: 100%;
+}
+
+.headlines .main-news .image {
+    width: 85%;
+    height: 100%;
+    float: right;
+}
+
+.headlines .main-news .content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50%;
+    height: 80%;
+    background-color: gainsboro;
+    opacity: 0.75;
+    border-radius: 10px;
+    padding: 20px 15px;
+}
+
+.headlines .main-news .content:hover {
+    opacity: 1;
+}
+
+.main-news .content .info {
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.main-news .content .info .logo {
+    width: 50px;
+}
+
+.main-news .content .info .logo img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #222;
+}
+
+.main-news .content .info span {
+    margin-left: 20px;
+    font-size: 20px;
+    color: black;
+    font-weight: 700;
+}
+
+
+.main-news .content .info span.timeAgo {
+    font-size: 15px;
+    color: #333;
+}
+
+span.timeAgo::before {
+    content: '\2022';
+    margin-right: 0.4em;
+}
+
+.main-news .content .title {
+    margin: 15px 0px;
+    height: 70%;
+}
+
+.main-news .content .footer span {
+    color: #333;
+    font-size: 0.8em;
+}
+
+
+.headlines .right-news {
+    flex: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.headlines .right-news .card {
+    display: flex;
+    height: 25%;
+    column-gap: 10px;
+}
+
+.headlines .right-news .card .image {
+    flex: 2;
+    height: 100%;
+}
+
+.headlines .right-news .card .content {
+    flex: 3;
+}
+
+
+.card .content .info {
+    margin-top: 10px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.card .content .info .logo {
+    height: 30px;
+    width: 30px;
+    border: 1px solid #333;
+    border-radius: 50%;
+}
+
+.card .content .info .logo img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.card .content .info span {
+    margin-left: 10px;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.card .content .info span.timeAgo {
+    font-size: 0.8em;
+    font-weight: 400;
+    color: #888;
+}
+
+.card .content .title {
+    margin-top: 10px;
+    height: 70%;
+    overflow-y: hidden;
+}
+
+.card .content .title h3 {
+    font-size: 1em;
+}
+
+.container-section {
+    margin-top: 100px;
+}
+
+.caption {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.caption h2 {
+    text-transform: capitalize;
+    font-size: 2em;
+}
+
+.caption a {
+    text-decoration: none;
+    color: red;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.caption a span {
+    margin-right: 10px;
+}
+
+.lastest-news .contents {
+    display: flex;
+    height: 510px;
+    column-gap: 20px;
+}
+
+.lastest-news .contents .card {
+    flex: 1;
+}
+
+.lastest-news .contents .card .image {
+    width: 100%;
+    height: 54%;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.lastest-news .contents .card .content {
+    padding: 20px 5px;
+}
+
+.lastest-news .contents .card .title h3 {
+    font-size: 1.5em;
+}
+
+.lastest-news .contents .card .title p {
+    color: #888;
+    margin-top: 10px;
+}
+
+.must-read .contents {
+    display: grid;
+    gap: 20px 15px;
+    grid-template-columns: 21% 27% 27% 21%;
+}
+
+.must-read .contents .card:nth-child(1) {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+
+.must-read .contents .card:nth-child(1) .image{
+  height: 50%;
+}
+
+.must-read .contents .card:nth-child(2) {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    position: relative;
+}
+
+
+.must-read .contents .card:nth-child(2) .content{
+    position: absolute;
+    bottom: 0px;
+    background-image: linear-gradient(rgba(14, 14, 14, 0), rgba(51, 51, 51, 1));
+    height: 45%;
+    padding: 5px 30px;
+}
+
+.must-read .contents .card:nth-child(2) .content .info {
+ height: 50px;
+}
+
+.must-read .contents .card:nth-child(2) .content .info .logo{
+    width: 50px;
+    height: 100%;
+}
+
+.must-read .contents .card:nth-child(2) .content .info span{
+  font-size: 1.2em;
+  color: #fff;
+}
+
+.must-read .contents .card:nth-child(2) .content .info span.timeAgo{
+    font-size: 0.8em;
+    color: #ddd;
+  }
+
+  .must-read .contents .card:nth-child(2) .content .title {
+    color: #ddd;
+  }
+
+  .must-read .contents .card:nth-child(2) .content .title h3{
+    color: #fff;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  }
+
+  .must-read .contents .card:nth-child(2) .content .title p{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  }
+
+
+.must-read .contents .card:nth-child(2) .image{
+    height: 100%;
+  }
+  
+
+.must-read .contents .card:nth-child(3) {
+    grid-column-start: 4;
+    grid-column-end: 5;
+}
+
+
+.must-read .contents .card:nth-child(4) {
+    grid-column-start: 4;
+    grid-column-end: 5;
+}
+
+.must-read .contents .card:nth-child(3) .content .title p{
+display: none;    
+}
+
+.must-read .contents .card:nth-child(4) .content .title p{
+    display: none;    
+}
+
+.topics{
+    display: flex;
+    column-gap: 4%;
+    column-count: 2;
+    flex-wrap: wrap;
+}
+
+.topics .topic{
+   width: 48%;
+}
+
+.contents-topic .card {
+   display: flex;
+   margin: 10px 0px;
+   column-gap: 15px;
+}
+.contents-topic .card .image{
+   flex: 1;
+}
+
+.contents-topic .card .title h3{
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+.contents-topic .card .title p{
+    font-size: 0.9em;
+    color: #888;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+
+.contents-topic .card .content{
+    flex: 2;
+ }
+
+ .contents-topic .card:nth-child(1) .image{
+    flex: 2;
+ }
+ 
+ .sources{
+overflow-x: hidden;
+width: 100%;
+ }
+
+ .sources ul{
+    list-style-type: none;
+    display: flex;
+    width: 100%;
+    animation: secondary 30s linear infinite;
+}
+
+.sources ul li{
+
+   height: 50px;
+   display: flex;
+   align-items: center;
+   margin-right: 100px;
+}
+
+.sources ul li img{
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+ }
+
+.sources ul li .infor{
+    width: 200px;
+    height: 100%;
+    margin-left: 20px;
+    padding: 5px 0px;
+}
+
+.sources ul li .infor p{
+   font-size: 0.8em;
+   color: red;
+}
+
+
+

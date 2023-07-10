@@ -6,9 +6,17 @@ import Footer from '../components/Footer'
 function Root(props) {
     return (
         <>
-            <Header></Header>
-            <Outlet></Outlet>
-            <Footer></Footer>
+            <div className='container'>
+                <Header></Header>
+            </div>
+
+            <main>
+                <Outlet></Outlet>
+            </main>
+            <div className='container'>
+                <Footer></Footer>
+            </div>
+
         </>
     );
 }

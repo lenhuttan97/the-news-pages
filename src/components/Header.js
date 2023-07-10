@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../css/header.css';
 
@@ -8,13 +8,20 @@ function Header(props) {
     const [isSearch, setIsSearch] = useState(false);
     const [isMenu, setIsMenu] = useState(false);
 
-    const [valueInput, setValueInput] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const handleSubmit = (event)=> {
-        alert('A name was submitted: ' + valueInput);
+    const [valueInput, setValueInput] = useState();
+
+
+    const handleSubmit = (event) => {
+        setSearchParams(params => {
+            params.set("p", valueInput);
+            return params;
+          });
+
     }
-    const handleChange = (event)=>{
-setValueInput(event.target.value)
+    const handleChange = (event) => {
+        setValueInput(event.target.value)
     }
     useEffect(() => {
         if (isSearch) ref.current.focus();
@@ -22,7 +29,7 @@ setValueInput(event.target.value)
     return (
         <header>
             <div className='logo'>
-                <Link to='/'>
+                <Link to='/home'>
                     <img src={require('../assets/lg.png')} />
                 </Link>
             </div>
@@ -30,7 +37,7 @@ setValueInput(event.target.value)
                 <div className='menu' onClick={() => {
                     setIsMenu(!isMenu)
                 }}>
-                    {isMenu ? <FontAwesomeIcon icon="fa-solid fa-xmark" className='icon' /> : <FontAwesomeIcon icon="fa-solid fa-bars" className='icon'/>}
+                    {isMenu ? <FontAwesomeIcon icon="fa-solid fa-xmark" className='icon' /> : <FontAwesomeIcon icon="fa-solid fa-bars" className='icon' />}
                 </div>
 
                 <div className={`arrow-up ${isMenu && 'display'}`}></div>
@@ -50,15 +57,15 @@ setValueInput(event.target.value)
                 <div className={`search-box ${isSearch && 'active'}`}>
                     {/* <input type={'text'} placeholder='Something...' ref={ref}></input>
                      */}
-                    <form onSubmit={handleSubmit}>
-                            <input type="text" onChange={handleChange} placeholder='Something...' ref={ref} />
-                        <input type="submit" value="Submit" hidden/>
+                    <form onSubmit={handleSubmit} action="/search/" method="get">
+                        <input type="text" onChange={handleChange} placeholder='Something...' ref={ref} name="q" value={valueInput} />
+                        <input type="submit" value="Submit" hidden />
                     </form>
                     <label onClick={() => {
                         setIsSearch(!isSearch)
                     }}>
                         {
-                            isSearch ? <FontAwesomeIcon icon="fa-solid fa-xmark" className='icon'/> : <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" className='icon' />
+                            isSearch ? <FontAwesomeIcon icon="fa-solid fa-xmark" className='icon' /> : <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" className='icon' />
                         }
                     </label>
                 </div>

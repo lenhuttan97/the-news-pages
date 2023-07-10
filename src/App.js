@@ -4,17 +4,7 @@ import Topic, { ckeckTopic } from './pages/Topic';
 import Root from './pages/Root';
 import NotFound from './pages/NotFound';
 import "./fontawesome.js"
-
-
-function loader(params) {
-  const topicId = params.params.topicId;
-  console.log(topicId)
-  if (topicId !== '1') {
-    throw Error("Could not fetch project");
-  }
-  return topicId;
-}
-
+import Search from './pages/Search';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +25,10 @@ const router = createBrowserRouter([
         path: "topic/:topicId",
         loader: ckeckTopic,
         element: <Topic />,
+      },
+      {
+        path: "search",
+        element: <Search />,
       },
     ],
   }
