@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../css/header.css';
 
@@ -10,12 +10,15 @@ function Header(props) {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
+    const location = useLocation();
+
     const [valueInput, setValueInput] = useState();
 
 
     const handleSubmit = (event) => {
         setSearchParams(params => {
             params.set("p", valueInput);
+            setIsSearch(false);
             return params;
         });
 
@@ -23,9 +26,15 @@ function Header(props) {
     const handleChange = (event) => {
         setValueInput(event.target.value)
     }
+
+    const onblur = () =>{
+        if(isSearch) setIsSearch(false);
+    }
     useEffect(() => {
         if (isSearch) ref.current.focus();
-    }, [isSearch])
+        setIsMenu(false);
+     
+    }, [isSearch, location])
     return (
         <header>
             <div className='logo'>
@@ -36,7 +45,7 @@ function Header(props) {
             <div className={`topic ${isSearch && 'blur'}`}>
                 <div className='menu' onClick={() => {
                     setIsMenu(!isMenu)
-                }}>
+                }} >
                     {isMenu ? <FontAwesomeIcon icon="fa-solid fa-xmark" className='icon' /> : <FontAwesomeIcon icon="fa-solid fa-bars" className='icon' />}
                 </div>
 
@@ -58,7 +67,7 @@ function Header(props) {
                     {/* <input type={'text'} placeholder='Something...' ref={ref}></input>
                      */}
                     <form onSubmit={handleSubmit} action="/search/" method="get">
-                        <input type="text" onChange={handleChange} placeholder='Something...' ref={ref} name="q" value={valueInput} />
+                        <input type="text" onChange={handleChange} placeholder='Something...' ref={ref} name="q" value={valueInput} onBlur={onblur}/>
                         <input type="submit" value="Submit" hidden />
                     </form>
                     <label onClick={() => {

@@ -154,11 +154,31 @@ span.timeAgo::before {
     display: flex;
     column-gap: 10px;
     height: max-content;
+    cursor: pointer;
 }
+
+.card:hover {
+  transform: scaleX(1.1);
+  transform: scaleY(1.1);
+
+   transform: translateY(-5px);
+   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+   border-radius: 10px;
+  
+}
+
 
 .card .image {
     flex: 2;
     height: initial;
+}
+
+.card:hover .image {
+   margin: 5px;
+}
+
+.card .content .info {
+   padding-left: 5px;
 }
 
 .card .content {
@@ -201,10 +221,16 @@ span.timeAgo::before {
 
 .card .content .title {
     margin-top: 10px;
+    padding: 5px;
 }
 
 .card .content .title h3 {
     font-size: 1em;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .container-section {
@@ -401,7 +427,7 @@ height: 50%;
     display: flex;
     margin: 10px 0px;
     column-gap: 15px;
-    height: 100px;
+    height: 110px;
 }
 
 .contents-topic .card .image {
@@ -552,6 +578,11 @@ height: 50%;
     .lastest-news .contents .card {
         flex-direction: row;
     }
+
+    .lastest-news .contents .card .image {
+        height: initial;
+        }
+        
 
     .must-read .contents {
         display: flex;

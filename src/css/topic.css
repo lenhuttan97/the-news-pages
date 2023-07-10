@@ -1,0 +1,99 @@
+.topic-news{
+    margin-top: 50px;
+}
+
+.topic-news .headline{
+    margin-bottom: 50px;
+}
+
+
+.topic-news .headline .content{
+    flex: 1;
+    position: relative;
+    padding: 20px;
+}
+
+.topic-news .headline .content .info{
+    width: 100%;
+    height: 100px;
+}
+
+.topic-news .headline .content .info .logo{
+    width: 50px;
+    height: 50px;
+}
+
+.topic-news .headline .content .info span{
+   font-size: 1.3em;
+}
+
+.topic-news .headline .content .info span.timeAgo{
+    font-size: 1em;
+ }
+
+ .topic-news .headline .content .title h3{
+    font-size: 1.6em;
+ }
+
+ .topic-news .headline .content .title p{
+    margin-top: 10%;
+    font-size: 1em;
+ }
+
+ .topic-news .headline .content .footer{
+   position: absolute;
+   bottom: 20px;
+ }
+
+ .news{
+    display: flex;
+    padding: 0 20px;
+    column-gap: 20px;
+ }
+
+ .news .main{
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+ }
+
+ .news .right .qc{
+   width: 100%;
+   height: 70vh;
+   background-color: antiquewhite;
+
+}
+
+ .news .right {
+    flex: 1;
+}
+
+
+ .news .right .another{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+}
+
+.news .right .another .another-item .item{
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+@media screen and (max-width: 768px) {
+
+    .news{
+        padding: 0;
+      }
+
+    .news .right {
+        display: none;
+    } 
+    .topic-news .headline .content .footer{
+        bottom: 0;
+      }
+
+}

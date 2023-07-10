@@ -6,6 +6,14 @@ const timeAgo = (time) => moment(time).fromNow();
 
 function Card(props) {
     const news = props.news;
+    const [isDeription, setIsDeription] = useState(true);
+
+    useEffect(()=>{
+        let description = props.isDeription;
+        if(description !== undefined && !description){
+            setIsDeription(description);
+        }
+    })
     return (
         <div className='card'>
             <div className='image'>
@@ -29,7 +37,7 @@ function Card(props) {
                     <h3>
                         {news.title}
                     </h3>
-                    <p>{news.description}</p>
+                    { isDeription && <p>{news.description}</p>}
                 </div>
             </div>
         </div>);
