@@ -1,35 +1,45 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
 import React, { useState, useEffect } from 'react';
-import { Link, useLoaderData, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Card from '../components/Card';
 import '../css/topic.css';
 import data from '../data/demo.json';
+import { topics , news as topic, loadTopic, status} from '../data/features/topicSlice';
 
 function Topic(props) {
-  const [article, setArticle] = useState(null)
-  const { topicId } = useParams()
+  
+  const { topicId } = useParams();
 
-  const [datas, setDatas] = useState(data.articles.slice(10, 20))
-  const [news, setData] = useState(data.articles[19])
+  const load = useSelector(status);
+  const news = useSelector(topic);
+  const datas = useSelector(topics);
 
-  const [another, setAnother] = useState(data.articles.slice(17, 20))
+  const dispatch = useDispatch();
 
-  const navigate = useNavigate()
+  const [another, setAnother] = useState(data.articles.slice(17, 20));
+
+  const [isLoad , setIsLoad] = useState(false);
 
   useEffect(() => {
-    if (topicId !== 'article') {
-      // throw Error(`throw an error!`);
+    if(load === 'idle'){
+      setIsLoad(true)
+    }else{
+      setIsLoad(false)
     }
+  }, [topicId, news , datas, load])
 
-    setArticle(topicId)
 
+  useEffect(() => {
+    dispatch(loadTopic({topic: topicId, page: 1}))
   }, [topicId])
 
   const timeAgo = (time) => moment(time).fromNow();
 
   return (
-    <div className='topic-news'>
+  <>
+    {isLoad &&    <div className='topic-news'>
       <div className='card headline'>
         <div className='content'>
           <div className='info'>
@@ -105,7 +115,9 @@ function Topic(props) {
           </div>
         </div>
       </div>
-    </div>
+    </div>}
+  </>
+ 
   );
 }
 

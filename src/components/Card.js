@@ -1,5 +1,7 @@
 import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { onOpen } from '../data/features/popupSlice';
 
 
 export const timeAgo = (time) => moment(time).fromNow();
@@ -8,6 +10,12 @@ function Card(props) {
     const news = props.news;
     const [isDeription, setIsDeription] = useState(true);
 
+    const dispatch = useDispatch();
+
+    const onOpenDetail = () =>{
+        dispatch(onOpen(news))
+    }
+
     useEffect(()=>{
         let description = props.isDeription;
         if(description !== undefined && !description){
@@ -15,7 +23,7 @@ function Card(props) {
         }
     })
     return (
-        <div className='card'>
+        <div className='card' onClick={onOpenDetail}>
             <div className='image'>
                 <img src={news.urlToImage} alt={news.urlToImage} />
             </div>
