@@ -2,7 +2,7 @@ import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react';
 
 
-const timeAgo = (time) => moment(time).fromNow();
+export const timeAgo = (time) => moment(time).fromNow();
 
 function Card(props) {
     const news = props.news;
