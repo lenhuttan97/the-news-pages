@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { json, Link, useParams, useSearchParams } from 'react-router-dom';
 import Card from '../components/Card';
 import dataraw from '../data/demo.json';
-import { loadSearch } from '../data/features/searchSlice';
+import { error, loadSearch, onNextPage } from '../data/features/searchSlice';
 
 function Search(props) {
 
@@ -15,36 +15,50 @@ function Search(props) {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const datas = useSelector((state) => state.search.data);
+    const status = useSelector((state) => state.search.status);
     const totalResults = useSelector((state) => state.search.total);
+    const message = useSelector(error);
     const dispatch = useDispatch();
 
     // const [datas, setDatas] = useState(data.articles.slice(10, 20))
     const [another, setAnother] = useState(data.articles.slice(17, 20))
 
-    const [isLoad , setIsLoad] = useState(false)
+    const [isLoad, setIsLoad] = useState(false)
 
-    const q = searchParams.get('q')
+    const q = searchParams.get('q');
+
+    const handleButton = () => {
+        dispatch(onNextPage());
+      }
 
     useEffect(() => {
         dispatch(loadSearch(searchParams))
+        setIsLoad(false)
     }, [searchParams])
 
     useEffect(() => {
         setIsLoad(true)
-    }, [datas])
+    }, [datas, totalResults, searchParams])
+
+    useEffect(() => {
+        if (status === 'error') {
+            throw new Response();
+          }
+    }, [message])
 
     return (
-        <>
-            {
-                isLoad &&   <div className='search'>
+        <div className='search'>
             <div className='caption'>
-                <h3>About {totalResults} results for `{q}`</h3>
+                {isLoad ? <h3>About {totalResults} results for `{q}`</h3> : <h1> <div className='skeleton skeleton-text'></div></h1>}
             </div>
             <div className='news'>
                 <div className='main'>
                     {
-                        datas.map((news) => <Card news={news} />)
+                        isLoad ? datas.map((news) => <Card news={news} isLoad={isLoad} />) : <><Card isLoad={false} /><Card isLoad={false} /></>
                     }
+                    <div className='button-6' onClick={() => handleButton()}>
+                        Load More
+                    </div>
                 </div>
                 <div className='right'>
                     <div className='qc'>
@@ -53,30 +67,38 @@ function Search(props) {
                     <div className='another'>
                         <div className='another-item'>
                             <div className='caption'>
-                                <h2>top news</h2>
-                                <Link to='/'>
-                                    <span>See all</span>
-                                    <FontAwesomeIcon icon="fa-solid fa-angle-right" />
-                                </Link>
+                                {isLoad ? <>
+                                    <h2>top news</h2>
+                                    <Link to='/'>
+                                        <span>See all</span>
+                                        <FontAwesomeIcon icon="fa-solid fa-angle-right" />
+                                    </Link>
+                                </> : <h1> <div className='skeleton skeleton-text'></div></h1>
+                                }
+
                             </div>
                             <div className='item'>
                                 {
-                                    another.map((news) => <Card news={news} isDeription={false} />)
+                                    another.map((news) => <Card news={news} isDeription={false} isLoad={isLoad} />)
                                 }
                             </div>
                         </div>
                         <div className='another-item'>
                             <div className='caption'>
-                                <h2>top news</h2>
-                                <Link to='/'>
-                                    <span>See all</span>
-                                    <FontAwesomeIcon icon="fa-solid fa-angle-right" />
-                                </Link>
+                                {isLoad ? <>
+                                    <h2>top news</h2>
+                                    <Link to='/'>
+                                        <span>See all</span>
+                                        <FontAwesomeIcon icon="fa-solid fa-angle-right" />
+                                    </Link>
+                                </> : <h1> <div className='skeleton skeleton-text'></div></h1>
+                                }
                             </div>
                             <div className='item'>
                                 {
-                                    another.map((news) => <Card news={news} isDeription={false} />)
+                                    another.map((news) => <Card news={news} isDeription={false} isLoad={isLoad} />)
                                 }
+
                             </div>
 
                         </div>
@@ -85,9 +107,6 @@ function Search(props) {
                 </div>
             </div>
         </div>
-            }
-        </>
-      
     );
 }
 

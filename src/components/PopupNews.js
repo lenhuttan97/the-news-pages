@@ -81,9 +81,12 @@ function PopupNews(props) {
                         </div>
                         <div className='container footer'>
                             <p>{news.url}</p>
+                            <a href={news.url} target="_blank" rel="noopener noreferrer">
                             <div className='button'>
                                 <span>read more</span>
                             </div>
+                            </a>
+                            
                         </div>
                     </div>
                 </Popup>

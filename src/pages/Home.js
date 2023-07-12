@@ -10,6 +10,7 @@ import Card from '../components/Card';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { headline, lastestNew, loadHeadlines, mustRead } from '../data/features/slice';
+import { onOpen } from '../data/features/popupSlice';
 
 function Home(props) {
 
@@ -26,10 +27,12 @@ function Home(props) {
 
     const dispatch = useDispatch();
 
+    const onOpenDetail = (news) => {
+        dispatch(onOpen(news))
+    }
 
     useEffect(() => {
         dispatch(loadHeadlines());
-       
     }, [])
 
     useEffect(() => {
@@ -38,37 +41,36 @@ function Home(props) {
 
     return (
         <>
-            {
-                isLoad && <>
-                    <section className='news-update'>
-                        <label>news update:</label>
-                        <div className='autoScroll'>
-                            <ul>
-                                {
-                                    headlines && headlines.map((newsUp) =>
-                                        <li>
-                                            <a href={newsUp.url}>
-                                                {newsUp.title}
-                                            </a>
-                                        </li>
-                                    )
-                                }
-                            </ul>
-                        </div>
+            <section className='news-update'>
+                <label>news update:</label>
+                <div className='autoScroll'>
+                    {!isLoad && <div className='skeleton skeleton-text'></div>}
+                    <ul>
+                        {
+                            isLoad && headlines && headlines.map((newsUp) =>
+                                <li>
+                                    <a onClick={()=>onOpenDetail(newsUp)}>
+                                        {newsUp.title}
+                                    </a>
+                                </li>
+                            )
+                        }
+                    </ul>
+                </div>
 
-                    </section>
-                    <section className='headlines'>
-                        <Headlines news={headlines}></Headlines>
-                    </section>
-                    <section className='container-section lastest-news'>
-                         <LastestNews news={lastestNews}></LastestNews>
-                    </section>
-                    <section className='container-section must-read'>
-                        <MustRead news={mustReads}></MustRead>
-                    </section>
-{/* các nhóm topic */}
-{/* business */}
-                    {/* <section className='container-section topics'>
+            </section>
+            <section className='headlines'>
+                <Headlines news={headlines} isLoad={isLoad}></Headlines>
+            </section>
+            <section className='container-section lastest-news'>
+                <LastestNews news={lastestNews} isLoad={isLoad}></LastestNews>
+            </section>
+            <section className='container-section must-read'>
+                {isLoad && <MustRead news={mustReads} isLoad={isLoad}></MustRead>}
+            </section>
+            {/* các nhóm topic */}
+            {/* business */}
+            {/* <section className='container-section topics'>
                         <div className='topic'>
                             <div className='caption'>
                                 <h2>business</h2>
@@ -80,8 +82,8 @@ function Home(props) {
                                 {business1.map((news) => <Card news={news} />)}
                             </div>
                         </div> */}
-{/* entertainment */}
-                        {/* <div className='topic'>
+            {/* entertainment */}
+            {/* <div className='topic'>
                             <div className='caption'>
                                 <h2>entertainment</h2>
                                 <Link to='/'>
@@ -92,8 +94,8 @@ function Home(props) {
                                 {entertainment1.map((news) => <Card news={news} />)}
                             </div>
                         </div> */}
-{/* technology */}
-                        {/* <div className='topic'>
+            {/* technology */}
+            {/* <div className='topic'>
                             <div className='caption'>
                                 <h2>technology</h2>
                                 <Link to='/'>
@@ -104,8 +106,8 @@ function Home(props) {
                                 {technology1.map((news) => <Card news={news} />)}
                             </div>
                         </div> */}
-{/* health */}
-                        {/* <div className='topic'>
+            {/* health */}
+            {/* <div className='topic'>
                             <div className='caption'>
                                 <h2>health</h2>
                                 <Link to='/'>
@@ -118,31 +120,27 @@ function Home(props) {
                             </div>
                         </div>
                     </section> */}
-                    <section className='container-section'>
-                        <div className='caption'>
-                            <h2>top news</h2>
-                            <Link to='/'>
-                                <span>See all</span>
-                                <FontAwesomeIcon icon="fa-solid fa-angle-right" />
-                            </Link>
-                        </div>
-                        <div className='sources'>
-                            <ul>
-                                {sources.map((source) =>
-                                    <li>
-                                        <div className='infor'>
-                                            <h3>{source.name}</h3>
-                                            <p>{source.category}</p>
-                                        </div>
-                                    </li>
-                                )}
-                            </ul>
-                        </div>
-                    </section>
-                </>
-
-            }
-
+            <section className='container-section'>
+                <div className='caption'>
+                    <h2>top news</h2>
+                    <Link to='/'>
+                        <span>See all</span>
+                        <FontAwesomeIcon icon="fa-solid fa-angle-right" />
+                    </Link>
+                </div>
+                <div className='sources'>
+                    <ul>
+                        {sources.map((source) =>
+                            <li>
+                                <div className='infor' >
+                                    <h3>{source.name}</h3>
+                                    <p>{source.category}</p>
+                                </div>
+                            </li>
+                        )}
+                    </ul>
+                </div>
+            </section>
         </>
     );
 }

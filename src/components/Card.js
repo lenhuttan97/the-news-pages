@@ -7,45 +7,71 @@ import { onOpen } from '../data/features/popupSlice';
 export const timeAgo = (time) => moment(time).fromNow();
 
 function Card(props) {
+
+   
     const news = props.news;
     const [isDeription, setIsDeription] = useState(true);
 
+    const [isLoad, setIsLoad] = useState(props.isLoad);
+
     const dispatch = useDispatch();
 
-    const onOpenDetail = () =>{
+    const onOpenDetail = () => {
         dispatch(onOpen(news))
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         let description = props.isDeription;
-        if(description !== undefined && !description){
+        if (description !== undefined && !description) {
             setIsDeription(description);
         }
-    })
+    }, [])
+
+    useEffect(() => {
+        setIsLoad(props.isLoad)
+    }, [props.isLoad])
     return (
         <div className='card' onClick={onOpenDetail}>
             <div className='image'>
-                <img src={news.urlToImage} alt={news.urlToImage} />
+                {isLoad ? <img src={news.urlToImage} alt={news.urlToImage} /> : <div className='skeleton'></div>}
             </div>
             <div className='content'>
                 <div className='info'>
-                    <div className='logo'>
-                        <img src={require('../assets/yahoo-icon.png')} alt={news.source.name} />
-                    </div>
-                    <span>
-                        {news.source.name}
-                    </span>
+                    {
+                        isLoad ? <>
+                            <div className='logo'>
+                                <img src={require('../assets/yahoo-icon.png')} alt={news.source.name} />
+                            </div>
+                            <span>
+                                {news.source.name}
+                            </span>
 
-                    <span className='timeAgo'>
-                        {timeAgo(news.publishedAt)}
-                    </span>
+                            <span className='timeAgo'>
+                                {timeAgo(news.publishedAt)}
+                            </span>
+                        </> : <>
+                            <div className='skeleton skeleton-text'></div>
+                        </>
+                    }
+
 
                 </div>
                 <div className='title'>
-                    <h3>
-                        {news.title}
-                    </h3>
-                    { isDeription && <p>{news.description}</p>}
+
+                    {isLoad ? <>
+                        <h3>
+                            {news.title}
+                        </h3>
+                        {isDeription && <p>
+                            {news.description}
+                        </p>}
+                    </> : <>
+                        <div className='skeleton skeleton-text'></div>
+                        <div className='skeleton skeleton-text'></div>
+                        <div className='skeleton skeleton-text'></div>
+                        <div className='skeleton skeleton-text'></div>
+                    </>}
+
                 </div>
             </div>
         </div>);

@@ -13,9 +13,8 @@ export const loadHeadlines = createAsyncThunk(
     async () => {
         try {
             // const response = await getHeadlines();
-            // const jsonData = response.json();
-            const jsonData = data 
-            return jsonData;
+            // const data = response.json();
+            return data;
         }
         catch (error) {
             throw new Error(error)

@@ -5,6 +5,7 @@ import Card from './Card';
 
 function MustRead(props) {
     const news = props.news;
+    const isLoad = props.isLoad;
     return (
         <>
             <div className='caption'>
@@ -15,7 +16,7 @@ function MustRead(props) {
                 </Link>
             </div>
             <div className='contents'>
-                {news.map((news) => <Card news={news} isDescription={false} />)}
+                {news.map((news) => <Card news={news} isDescription={false} isLoad={isLoad}/>)}
             </div>
 
         </>

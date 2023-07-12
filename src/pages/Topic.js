@@ -2,80 +2,108 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { json, Link, useNavigate, useParams } from 'react-router-dom';
 import Card from '../components/Card';
 import '../css/topic.css';
 import data from '../data/demo.json';
-import { topics , news as topic, loadTopic, status} from '../data/features/topicSlice';
+import { topics, news as topic, loadTopic, status, onNextPage, error } from '../data/features/topicSlice';
 
 function Topic(props) {
-  
+
   const { topicId } = useParams();
 
   const load = useSelector(status);
   const news = useSelector(topic);
-  const datas = useSelector(topics);
+  const datass = useSelector(topics);
+  const message = useSelector(error);
 
   const dispatch = useDispatch();
 
   const [another, setAnother] = useState(data.articles.slice(17, 20));
-
-  const [isLoad , setIsLoad] = useState(false);
+  const [datas, setDatas] = useState();
+  const [isLoad, setIsLoad] = useState(false);
 
   useEffect(() => {
-    if(load === 'idle'){
+    if (load === 'idle' || load === 'full') {
       setIsLoad(true)
-    }else{
+      setDatas(datass);
+    } else {
       setIsLoad(false)
     }
-  }, [topicId, news , datas, load])
+  }, [topicId, news, datass, load])
+
+  useEffect(() => {
+    if (load === 'error') {
+      throw json({status: load});
+    }
+  }, [message])
+
+  const handleButton = () => {
+    dispatch(onNextPage());
+  }
 
 
   useEffect(() => {
-    dispatch(loadTopic({topic: topicId, page: 1}))
+    dispatch(loadTopic({ topic: topicId, page: 1 }))
   }, [topicId])
 
   const timeAgo = (time) => moment(time).fromNow();
 
   return (
-  <>
-    {isLoad &&    <div className='topic-news'>
+    <div className='topic-news'>
       <div className='card headline'>
         <div className='content'>
           <div className='info'>
             <div className='logo'>
-              <img src={require('../assets/yahoo-icon.png')} alt={news.source.name} />
+              {isLoad ? <img src={require('../assets/yahoo-icon.png')} alt={news.source.name} /> : <div className='skeleton'></div>}
+
             </div>
-            <span>
-              {news.source.name}
-            </span>
 
-            <span className='timeAgo'>
-              {timeAgo(news.publishedAt)}
-            </span>
-
+            {isLoad ? <>
+              <span>
+                {news.source.name}
+              </span>
+              <span className='timeAgo'>
+                {timeAgo(news.publishedAt)}
+              </span>
+            </> : <div className='skeleton skeleton-text'></div>
+            }
           </div>
           <div className='title'>
-            <h3>
-              {news.title}
-            </h3>
-            <p>{news.description}</p>
+            {isLoad ? <>
+              <h3>
+                {news.title}
+              </h3>
+              <p>{news.description}</p>
+            </> : <>
+              <div className='skeleton skeleton-text'></div>
+              <div className='skeleton skeleton-text'></div>
+            </>
+            }
           </div>
           <div className='footer'>
-            <span>
+            {isLoad ? <span>
               {moment(news.publishedAt).format("MMMM Do YYYY")}
-            </span>
+            </span> :
+
+              <div className='skeleton skeleton-text'></div>
+            }
+
           </div>
         </div>
         <div className='image'>
-          <img src={news.urlToImage} alt={news.urlToImage} />
+          {isLoad ? <img src={news.urlToImage} alt={news.urlToImage} /> : <div className='skeleton'></div>}
+
         </div>
       </div>
       <div className='news'>
         <div className='main'>
           {
-            datas.map((news) => <Card news={news} />)
+            isLoad ? datas.map((news) => <Card news={news} isLoad={isLoad} /> ) : <Card isLoad={false} />
           }
+          <div className='button-6' onClick={()=>handleButton()}>
+              Load More
+          </div>
         </div>
         <div className='right'>
           <div className='qc'>
@@ -92,7 +120,7 @@ function Topic(props) {
               </div>
               <div className='item'>
                 {
-                  another.map((news) => <Card news={news} isDeription={false} />)
+                  another.map((news) => <Card news={news} isDeription={false} isLoad={isLoad} />)
                 }
               </div>
             </div>
@@ -106,7 +134,7 @@ function Topic(props) {
               </div>
               <div className='item'>
                 {
-                  another.map((news) => <Card news={news} isDeription={false} />)
+                  another.map((news) => <Card news={news} isDeription={false} isLoad={isLoad} />)
                 }
               </div>
 
@@ -115,9 +143,8 @@ function Topic(props) {
           </div>
         </div>
       </div>
-    </div>}
-  </>
- 
+    </div>
+
   );
 }
 
