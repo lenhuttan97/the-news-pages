@@ -10,7 +10,8 @@ function Search(props) {
 
     const data = dataraw;
 
-    const params = useParams();
+    // const params = useParams();
+
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -26,25 +27,26 @@ function Search(props) {
     const [isLoad, setIsLoad] = useState(false)
 
     const q = searchParams.get('q');
-
+    console.log(q);
     const handleButton = () => {
         dispatch(onNextPage());
       }
 
-    useEffect(() => {
-        dispatch(loadSearch(searchParams))
-        setIsLoad(false)
-    }, [searchParams])
+    // useEffect(() => {
+    //     dispatch(loadSearch(searchParams))
+    //     setIsLoad(false)
+    // }, [searchParams])
 
-    useEffect(() => {
-        setIsLoad(true)
-    }, [datas, totalResults, searchParams])
+    // useEffect(() => {
+    //     setIsLoad(true)
+    // }, [datas, totalResults])
 
-    useEffect(() => {
-        if (status === 'error') {
-            throw new Response();
-          }
-    }, [message])
+    // useEffect(() => {
+    //     if (status === 'error') {
+    //         console.log(message)
+    //         throw json({status: status});
+    //       }
+    // }, [message])
 
     return (
         <div className='search'>
@@ -108,6 +110,10 @@ function Search(props) {
             </div>
         </div>
     );
+}
+
+export const loader = (params) => {
+    return params;
 }
 
 export default Search;

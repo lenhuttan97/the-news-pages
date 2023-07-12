@@ -4,13 +4,12 @@ import Topic, { ckeckTopic } from './pages/Topic';
 import Root from './pages/Root';
 import NotFound from './pages/NotFound';
 import "./fontawesome.js"
-import Search from './pages/Search';
+import Search, { loader } from './pages/Search';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-   
     errorElement: <NotFound />,
     children: [
       {
@@ -18,7 +17,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/home",
+        path: "home",
         element: <Home />,
       },
       {
@@ -26,12 +25,21 @@ const router = createBrowserRouter([
         loader: ckeckTopic,
         element: <Topic />,
       },
+
       {
-        path: "search",
+        path: "/search",
         element: <Search />,
       },
+     
     ],
-  }
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+
+  
+
 ]);
 
 function App() {

@@ -34,7 +34,7 @@ function Topic(props) {
 
   useEffect(() => {
     if (load === 'error') {
-      throw json({status: load});
+      throw json({ status: load });
     }
   }, [message])
 
@@ -99,10 +99,10 @@ function Topic(props) {
       <div className='news'>
         <div className='main'>
           {
-            isLoad ? datas.map((news) => <Card news={news} isLoad={isLoad} /> ) : <Card isLoad={false} />
+            isLoad ? datas.map((news) => <Card news={news} isLoad={isLoad} />) : <Card isLoad={false} />
           }
-          <div className='button-6' onClick={()=>handleButton()}>
-              Load More
+          <div className='button-6' onClick={() => handleButton()}>
+            Load More
           </div>
         </div>
         <div className='right'>

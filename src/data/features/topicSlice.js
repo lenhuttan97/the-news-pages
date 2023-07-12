@@ -14,13 +14,9 @@ var fulldata = []
 export const loadTopic = createAsyncThunk(
     'topic',
     async (option) => {
-        try {
             let fetch = await getTopic({ category: option.topic, page: option.page });
             let data = fetch.json();
             return data;
-        } catch (error) {
-            throw new Error(error)
-        }
     }
 )
 
@@ -55,7 +51,7 @@ const topic = createSlice({
                     state.data = action.payload.articles.slice(1, 11);
                 } else {
                     state.status = 'error';
-                    state.error = action.payload.message
+                    state.error = action.payload.message;
                 }
             })
             .addCase(loadTopic.rejected, (state, action) => {

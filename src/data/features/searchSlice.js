@@ -15,13 +15,10 @@ var fulldata = []
 export const loadSearch = createAsyncThunk(
     'search',
     async (input) =>{
-        try {
-            let fetch = await getSearch(input);
-            let data = fetch.json();
+            // let fetch = await getSearch(input);
+            // let data = fetch.json();
+            console.log('loadSearch')
             return data;
-        } catch (error) {
-            throw new Error(error);
-        }
     }
 )
 
@@ -62,6 +59,7 @@ export const search = createSlice({
                     }
                 } else {  
                     state.status = 'error';
+                    console.log(action.payload.message)
                     state.error = action.payload.message
                 }
                
