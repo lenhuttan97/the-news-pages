@@ -32,21 +32,21 @@ function Search(props) {
         dispatch(onNextPage());
       }
 
-    // useEffect(() => {
-    //     dispatch(loadSearch(searchParams))
-    //     setIsLoad(false)
-    // }, [searchParams])
+    useEffect(() => {
+        dispatch(loadSearch(searchParams))
+        setIsLoad(false)
+    }, [searchParams])
 
-    // useEffect(() => {
-    //     setIsLoad(true)
-    // }, [datas, totalResults])
+    useEffect(() => {
+        setIsLoad(true)
+    }, [datas, totalResults])
 
-    // useEffect(() => {
-    //     if (status === 'error') {
-    //         console.log(message)
-    //         throw json({status: status});
-    //       }
-    // }, [message])
+    useEffect(() => {
+        if (status === 'error') {
+            console.log(message)
+            throw json({status: status});
+          }
+    }, [message])
 
     return (
         <div className='search'>

@@ -14,8 +14,8 @@ var fulldata = []
 export const loadTopic = createAsyncThunk(
     'topic',
     async (option) => {
-            let fetch = await getTopic({ category: option.topic, page: option.page });
-            let data = fetch.json();
+            // let fetch = await getTopic({ category: option.topic, page: option.page });
+            // let data = fetch.json();
             return data;
     }
 )

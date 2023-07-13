@@ -14,13 +14,16 @@ function Header(props) {
 
     const [valueInput, setValueInput] = useState();
 
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
-        setSearchParams(params => {
-            params.set("p", valueInput);
-            setIsSearch(false);
-            return params;
-        });
+        // setSearchParams(params => {
+        //     params.set("p", valueInput);
+        //     setIsSearch(false);
+        //     return params;
+        // });
+        let url = '/search?q=' + valueInput
+        navigate(url);
 
     }
     const handleChange = (event) => {
@@ -66,7 +69,8 @@ function Header(props) {
                 <div className={`search-box ${isSearch && 'active'}`}>
                     {/* <input type={'text'} placeholder='Something...' ref={ref}></input>
                      */}
-                    <form onSubmit={handleSubmit} action="/search/" method="get">
+                    {/* <form onSubmit={handleSubmit} action="/search" method="get"> */}
+                    <form onSubmit={handleSubmit}>
                         <input type="text" onChange={handleChange} placeholder='Something...' ref={ref} name="q" value={valueInput} onBlur={onblur}/>
                         <input type="submit" value="Submit" hidden />
                     </form>
