@@ -7,6 +7,6 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-let port = 3000
+let port = 10000
 app.listen(port);
 console.log('server running in port: ' + port);
