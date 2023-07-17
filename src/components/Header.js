@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../css/header.css';
 
@@ -41,9 +41,9 @@ function Header(props) {
     return (
         <header>
             <div className='logo'>
-                <Link to='/home'>
+                <NavLink to='/home'>
                     <img src={require('../assets/lg.png')} />
-                </Link>
+                </NavLink>
             </div>
             <div className={`topic ${isSearch && 'blur'}`}>
                 <div className='menu' onClick={() => {
@@ -54,14 +54,14 @@ function Header(props) {
 
                 <div className={`arrow-up ${isMenu && 'display'}`}></div>
                 <ul className={`${isMenu && 'display'}`}>
-                    <li> <Link to='/topic/'>country</Link></li>
-                    <li> <Link to='/topic/business'>business</Link></li>
-                    <li> <Link to='/topic/entertainment'>entertainment</Link></li>
-                    <li> <Link to='/topic/general'>general</Link></li>
-                    <li> <Link to='/topic/health'>health</Link></li>
-                    <li> <Link to='/topic/science'>science</Link></li>
-                    <li> <Link to='/topic/sports'>sports</Link></li>
-                    <li> <Link to='/topic/technology'>technology</Link></li>
+                    {/* <li> <NavLink to='/topic/'>country</NavLink></li> */}
+                    <li> <NavLink to='/topic/business'>business</NavLink></li>
+                    <li> <NavLink to='/topic/entertainment'>entertainment</NavLink></li>
+                    {/* <li> <NavLink to='/topic/general'>general</NavLink></li> */}
+                    <li> <NavLink to='/topic/health'>health</NavLink></li>
+                    <li> <NavLink to='/topic/science'>science</NavLink></li>
+                    <li> <NavLink to='/topic/sports'>sports</NavLink></li>
+                    <li> <NavLink to='/topic/technology'>technology</NavLink></li>
                 </ul>
 
             </div>

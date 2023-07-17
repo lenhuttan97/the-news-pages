@@ -7,10 +7,14 @@ import LastestNews from '../components/LastestNews';
 import MustRead from '../components/MustRead';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Card from '../components/Card';
+
+import { animate, motion, Variants } from 'framer-motion';
+
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { headline, lastestNew, loadHeadlines, mustRead } from '../data/features/slice';
 import { onOpen } from '../data/features/popupSlice';
+import { loadAll } from '../data/features/sliceAll';
 
 function Home(props) {
 
@@ -33,12 +37,12 @@ function Home(props) {
 
     useEffect(() => {
         dispatch(loadHeadlines());
+        dispatch(loadAll())
     }, [])
 
     useEffect(() => {
         setIsLoad(isDone);
     }, [isDone]);
-
     return (
         <>
             <section className='news-update'>
@@ -49,7 +53,7 @@ function Home(props) {
                         {
                             isLoad && headlines && headlines.map((newsUp) =>
                                 <li>
-                                    <a onClick={()=>onOpenDetail(newsUp)}>
+                                    <a onClick={() => onOpenDetail(newsUp)}>
                                         {newsUp.title}
                                     </a>
                                 </li>
@@ -59,15 +63,32 @@ function Home(props) {
                 </div>
 
             </section>
-            <section className='headlines'>
+            <motion.section className='headlines' whileInView={{ opacity: 1 }}>
                 <Headlines news={headlines} isLoad={isLoad}></Headlines>
-            </section>
-            <section className='container-section lastest-news'>
+            </motion.section>
+            <motion.section className='container-section lastest-news'
+                initial={{ visibility: 'hidden' }}
+                whileInView={{
+                    visibility: 'visible',
+                    transition: {
+                        duration: 1
+                    }
+                }}
+            >
                 <LastestNews news={lastestNews} isLoad={isLoad}></LastestNews>
-            </section>
-            <section className='container-section must-read'>
+            </motion.section>
+            <motion.section className='container-section must-read'
+               initial={{ visibility: 'hidden' }}
+                whileInView={{
+                    visibility: 'visible',
+                    transition: {
+                        duration: 1
+                    },
+                   
+                }}
+            >
                 {isLoad && <MustRead news={mustReads} isLoad={isLoad}></MustRead>}
-            </section>
+            </motion.section>
             {/* các nhóm topic */}
             {/* business */}
             {/* <section className='container-section topics'>

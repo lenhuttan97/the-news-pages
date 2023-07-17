@@ -1,16 +1,21 @@
+import { MotionConfig } from 'framer-motion';
 import moment from 'moment/moment';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { onOpen } from '../data/features/popupSlice';
-
+import { motion } from 'framer-motion';
+import { card } from './animation';
 
 export const timeAgo = (time) => moment(time).fromNow();
 
 function Card(props) {
 
-   
+
     const news = props.news;
+    const position = props.position;
     const [isDeription, setIsDeription] = useState(true);
+
+    const [isPosition] = useState(position ? position : 'hoverCenter');
 
     const [isLoad, setIsLoad] = useState(props.isLoad);
 
@@ -19,7 +24,6 @@ function Card(props) {
     const onOpenDetail = () => {
         dispatch(onOpen(news))
     }
-
     useEffect(() => {
         let description = props.isDeription;
         if (description !== undefined && !description) {
@@ -31,7 +35,13 @@ function Card(props) {
         setIsLoad(props.isLoad)
     }, [props.isLoad])
     return (
-        <div className='card' onClick={onOpenDetail}>
+        <motion.div className='card' onClick={onOpenDetail}
+            variants={card}
+            whileHover={isPosition}
+            whileTap='tap'
+            initial='hidden'
+            whileInView='show'
+        >
             <div className='image'>
                 {isLoad ? <img src={news.urlToImage} alt={news.urlToImage} /> : <div className='skeleton'></div>}
             </div>
@@ -74,7 +84,7 @@ function Card(props) {
 
                 </div>
             </div>
-        </div>);
+        </motion.div>);
 }
 
 export default Card;

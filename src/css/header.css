@@ -38,6 +38,27 @@ header .topic ul {
     width: 100%;
     justify-content: space-between;
 }
+header .topic ul li {
+    position: relative;
+
+}
+
+header .topic ul li::before {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    content: '';
+   width: 0%;
+   height: 2px;
+   border-radius: 100vmax;
+   background-color: #999;
+   transition: width 1s ease-in;
+}
+
+header .topic ul:hover li:hover:before {
+    width: 100%;
+}
+
 
 header .topic ul li a {
     color: #fff;
@@ -45,12 +66,23 @@ header .topic ul li a {
     text-transform: capitalize;
 }
 
+
+
+header .topic ul li a.active{
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+   color: rgb(254, 220, 147);
+}
+
+
 header .topic ul:hover li a {
     color: transparent;
     text-shadow: 0 0 1px #999;
 }
 
+
 header .topic ul:hover li:hover a {
+
     color: #fff;
     font-size: 20px;
     text-shadow: 0 0 2px rgb(255, 255, 255);

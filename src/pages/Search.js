@@ -13,16 +13,14 @@ function Search(props) {
     // const params = useParams();
 
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
 
     const datas = useSelector((state) => state.search.data);
     const status = useSelector((state) => state.search.status);
     const totalResults = useSelector((state) => state.search.total);
     const message = useSelector(error);
     const dispatch = useDispatch();
-
-    // const [datas, setDatas] = useState(data.articles.slice(10, 20))
-    const [another, setAnother] = useState(data.articles.slice(17, 20))
+    const [another] = useState(data.articles.slice(17, 20))
 
     const [isLoad, setIsLoad] = useState(false)
 
@@ -39,14 +37,11 @@ function Search(props) {
 
     useEffect(() => {
         setIsLoad(true)
-    }, [datas, totalResults])
-
-    useEffect(() => {
         if (status === 'error') {
             console.log(message)
             throw json({status: status});
           }
-    }, [message])
+    }, [datas, totalResults, message])
 
     return (
         <div className='search'>

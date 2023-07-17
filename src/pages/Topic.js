@@ -6,7 +6,9 @@ import { json, Link, useNavigate, useParams } from 'react-router-dom';
 import Card from '../components/Card';
 import '../css/topic.css';
 import data from '../data/demo.json';
-import { topics, news as topic, loadTopic, status, onNextPage, error } from '../data/features/topicSlice';
+import { topics, news as topic, loadTopic, status, onNextPage, error, arrTopic } from '../data/features/topicSlice';
+import { onOpen } from '../data/features/popupSlice';
+import { motion } from 'framer-motion';
 
 function Topic(props) {
 
@@ -19,7 +21,7 @@ function Topic(props) {
 
   const dispatch = useDispatch();
 
-  const [another, setAnother] = useState(data.articles.slice(17, 20));
+  const [another] = useState(data.articles.slice(17, 20));
   const [datas, setDatas] = useState();
   const [isLoad, setIsLoad] = useState(false);
 
@@ -42,6 +44,9 @@ function Topic(props) {
     dispatch(onNextPage());
   }
 
+  const onOpenDetail = () => {
+    dispatch(onOpen(news))
+  }
 
   useEffect(() => {
     dispatch(loadTopic({ topic: topicId, page: 1 }))
@@ -51,7 +56,7 @@ function Topic(props) {
 
   return (
     <div className='topic-news'>
-      <div className='card headline'>
+      <div className='card headline' onClick={onOpenDetail} >
         <div className='content'>
           <div className='info'>
             <div className='logo'>
@@ -99,11 +104,18 @@ function Topic(props) {
       <div className='news'>
         <div className='main'>
           {
-            isLoad ? datas.map((news) => <Card news={news} isLoad={isLoad} />) : <Card isLoad={false} />
+            isLoad ? datas.map((news) => <Card news={news} isLoad={isLoad} position='hoverRight'/>) : <Card isLoad={false} />
           }
-          <div className='button-6' onClick={() => handleButton()}>
-            Load More
-          </div>
+          {
+            !isLoad ? <Card isLoad={false} /> : <motion.div className='button-6' onClick={() => handleButton()}
+              whileTap={{
+                scale: 0.95
+              }}
+            >
+              Load More
+            </motion.div>
+          }
+
         </div>
         <div className='right'>
           <div className='qc'>
@@ -120,7 +132,7 @@ function Topic(props) {
               </div>
               <div className='item'>
                 {
-                  another.map((news) => <Card news={news} isDeription={false} isLoad={isLoad} />)
+                  another.map((news) => <Card news={news} isDeription={false} isLoad={isLoad} position='hoverLeft'  />)
                 }
               </div>
             </div>
@@ -134,7 +146,7 @@ function Topic(props) {
               </div>
               <div className='item'>
                 {
-                  another.map((news) => <Card news={news} isDeription={false} isLoad={isLoad} />)
+                  another.map((news) => <Card news={news} isDeription={false} isLoad={isLoad}  position='hoverLeft' />)
                 }
               </div>
 
@@ -149,8 +161,9 @@ function Topic(props) {
 }
 
 export const ckeckTopic = (params) => {
-  const arrTopic = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
-  if (!arrTopic.includes(params.params.topicId)) {
+  const topics =arrTopic;
+;
+  if (!topics.includes(params.params.topicId)) {
     throw new Error("no topic Id")
   }
   return params.params.topicId;

@@ -5,6 +5,7 @@ import Root from './pages/Root';
 import NotFound from './pages/NotFound';
 import "./fontawesome.js"
 import Search, { loader } from './pages/Search';
+import { AnimatePresence } from 'framer-motion';
 
 const router = createBrowserRouter([
   {
@@ -44,7 +45,10 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-      <RouterProvider router={router} />
+    <AnimatePresence mode="wait">
+     <RouterProvider router={router} />
+    </AnimatePresence>
+     
   );
 }
 

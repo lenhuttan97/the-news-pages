@@ -9,12 +9,16 @@ const initialState = {
 
 }
 
+export const arrTopic = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
+
 var fulldata = []
 
 export const loadTopic = createAsyncThunk(
     'topic',
     async (option) => {
-            // let fetch = await getTopic({ category: option.topic, page: option.page });
+        let category = option.topic;
+        let page = option.page ? option.page : 1
+            // let fetch = await getTopic({ category: category, page: page });
             // let data = fetch.json();
             return data;
     }

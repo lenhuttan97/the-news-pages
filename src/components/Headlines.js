@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import moment, { now } from 'moment';
 import { useDispatch } from 'react-redux';
 import { onOpen } from '../data/features/popupSlice';
+import { motion } from 'framer-motion';
+import { card } from './animation';
 
 const RightCard = (props) => {
 
@@ -9,7 +11,11 @@ const RightCard = (props) => {
 
     const news = props.news;
     return (
-        <div className='card' onClick={() => props.onOpenDetail(news)}>
+        <motion.div className='card' onClick={() => props.onOpenDetail(news)}
+             variants={card}
+                whileHover='hoverCenter'
+                whileTap='tap'
+        >
             <div className='image'>
 
                 {isLoad ? <img src={news.urlToImage} alt={news.urlToImage} /> : <div className='skeleton'></div>}
@@ -21,23 +27,23 @@ const RightCard = (props) => {
                         {isLoad ? <img src={require('../assets/yahoo-icon.png')} alt={news.source.name} /> : <div className='skeleton'></div>}
                     </div>
                     <span>
-                        {isLoad ? <>{ news.source.name }</> : <>  <div className='skeleton skeleton-text' style={{ width: '200px' }}></div>
+                        {isLoad ? <>{news.source.name}</> : <>  <div className='skeleton skeleton-text' style={{ width: '200px' }}></div>
                             <div className='skeleton skeleton-text' style={{ width: '200px' }}></div></>}
                     </span>
                     {isLoad && <span className='timeAgo'>
-                    {timeAgo(news.publishedAt)}
-                </span> }
+                        {timeAgo(news.publishedAt)}
+                    </span>}
                 </div>
                 <div className='title'>
                     <h3>
-{isLoad ? <>{news.title}</> :<>
-                        <div className='skeleton skeleton-text'></div>
-                        <div className='skeleton skeleton-text'></div>
-                        <div className='skeleton skeleton-text'></div></>}
+                        {isLoad ? <>{news.title}</> : <>
+                            <div className='skeleton skeleton-text'></div>
+                            <div className='skeleton skeleton-text'></div>
+                            <div className='skeleton skeleton-text'></div></>}
                     </h3>
                 </div>
             </div>
-        </div>)
+        </motion.div>)
 }
 
 
@@ -58,24 +64,28 @@ function Headlines(props) {
 
     return (
         <>
-            <div className='main-news' >
-                <div className='image'>
-                {isLoad ? <img src={main.urlToImage} alt={main.urlToImage} /> :   <div className='skeleton' ></div>}
+            <motion.div className='main-news' 
+                variants={card}
+                whileHover='hoverCenter'
+                whileTap='tap'
+            >
+                <div className={`image ${isLoad && 'runImageMain'}`}>
+                    {isLoad ? <img src={main.urlToImage} alt={main.urlToImage} /> : <div className='skeleton' ></div>}
                 </div>
-                <div className='content' onClick={() => onOpenDetail(main)}>
+                <div className={`content ${isLoad && 'runContent'}`} onClick={() => onOpenDetail(main)}>
                     <div className='info'>
                         <div className='logo'>
-                        {isLoad ? <img src={require('../assets/yahoo-icon.png')} alt={main.source.name} /> :   <div className='skeleton'></div>}
+                            {isLoad ? <img src={require('../assets/yahoo-icon.png')} alt={main.source.name} /> : <div className='skeleton'></div>}
                         </div>
 
                         {isLoad ? <>
                             <span>
-                            {main.source.name}
-                        </span>
+                                {main.source.name}
+                            </span>
 
-                        <span className='timeAgo'>
-                            {timeAgo(main.publishedAt)}
-                        </span>
+                            <span className='timeAgo'>
+                                {timeAgo(main.publishedAt)}
+                            </span>
                         </> : <div style={{ width: '80%', marginLeft: '10px' }}>
                             <div className='skeleton skeleton-text'></div>
                             <div className='skeleton skeleton-text'></div>
@@ -83,26 +93,26 @@ function Headlines(props) {
                     </div>
                     <div className='title'>
                         <h2>
-                         {isLoad ? main.title : <>   <div className='skeleton skeleton-text'></div>
-                            <div className='skeleton skeleton-text'></div>
-                            <div className='skeleton skeleton-text'></div>
-                            <div className='skeleton skeleton-text'></div></>}
+                            {isLoad ? main.title : <>   <div className='skeleton skeleton-text'></div>
+                                <div className='skeleton skeleton-text'></div>
+                                <div className='skeleton skeleton-text'></div>
+                                <div className='skeleton skeleton-text'></div></>}
                         </h2>
                         <p>
-                        {isLoad ? main.description : <> <div className='skeleton skeleton-text' style={{ marginTop: '20px' }}></div>
-                            <div className='skeleton skeleton-text'></div>
-                            <div className='skeleton skeleton-text'></div>
-                            <div className='skeleton skeleton-text'></div></>}
+                            {isLoad ? main.description : <> <div className='skeleton skeleton-text' style={{ marginTop: '20px' }}></div>
+                                <div className='skeleton skeleton-text'></div>
+                                <div className='skeleton skeleton-text'></div>
+                                <div className='skeleton skeleton-text'></div></>}
                         </p>
 
                     </div>
                     <div className='footer'>
                         <span>
-                        {isLoad ? moment(main.publishedAt).format("MMMM Do YYYY") :    <div className='skeleton skeleton-text'></div>}
+                            {isLoad ? moment(main.publishedAt).format("MMMM Do YYYY") : <div className='skeleton skeleton-text'></div>}
                         </span>
                     </div>
                 </div>
-            </div>
+            </motion.div>
             <div className='right-news'>
                 {right.map((news) => <RightCard news={news} onOpenDetail={onOpenDetail} isLoad={isLoad}></RightCard>)}
             </div>
